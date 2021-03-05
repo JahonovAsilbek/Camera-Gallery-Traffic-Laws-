@@ -3,6 +3,7 @@ package uz.revolution.trafficlaws.main.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_traffic.view.*
 import uz.revolution.trafficlaws.R
@@ -48,9 +49,9 @@ class ItemTrafficAdapter:RecyclerView.Adapter<ItemTrafficAdapter.VH>() {
                 }
             }
 
-            itemView.delete.setOnClickListener {
-                if (onDeleteClick != null) {
-                    onDeleteClick!!.onClick(traffic, position)
+            itemView.liked.setOnClickListener {
+                if (onLikeClick != null) {
+                    onLikeClick!!.onClick(traffic, position,itemView.liked)
                 }
             }
 
@@ -86,6 +87,6 @@ class ItemTrafficAdapter:RecyclerView.Adapter<ItemTrafficAdapter.VH>() {
         fun onClick(traffic: Traffic,position: Int)
     }
     interface OnLikeClick{
-        fun onClick(traffic: Traffic,position: Int)
+        fun onClick(traffic: Traffic,position: Int,imageView: ImageView)
     }
 }
