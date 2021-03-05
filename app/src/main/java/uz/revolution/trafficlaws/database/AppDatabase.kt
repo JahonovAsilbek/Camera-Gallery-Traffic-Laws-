@@ -26,11 +26,11 @@ abstract class AppDatabase:RoomDatabase() {
                 }
             }
         }
+    }
 
-        object get{
-            fun getDatabse():AppDatabase{
-                return database!!
-            }
+    object get{
+        fun getDatabse():AppDatabase{
+            return database!!
         }
     }
 }

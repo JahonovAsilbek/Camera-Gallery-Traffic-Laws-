@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="uz.revolution.trafficlaws.StartFragment"
+        android:name="uz.revolution.trafficlaws.main.StartFragment"
         android:label="fragment_start"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_trafficFragment"
+            app:destination="@id/trafficFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trafficFragment"
+        android:name="uz.revolution.trafficlaws.main.TrafficFragment"
+        android:label="fragment_traffic"
+        tools:layout="@layout/fragment_traffic" />
 </navigation>
