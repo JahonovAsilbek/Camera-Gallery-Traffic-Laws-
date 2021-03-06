@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".addTraffic.AddFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:outlineSpotShadowColor="@color/main_color"
+        android:outlineAmbientShadowColor="@color/main_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/appbarlayout"
+        android:layout_height="wrap_content"
+        tools:targetApi="p">
+
+        <androidx.appcompat.widget.Toolbar
+            app:title="Yo'l belgisini qo'shish"
+            app:titleTextColor="@android:color/white"
+            android:id="@+id/toolbar"
+            android:background="@color/main_color"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            android:outlineSpotShadowColor="@color/main_color"
+            android:outlineAmbientShadowColor="@color/main_color"
+            app:menu="@menu/add_btn"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:backgroundTint="@color/main_color" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:src="@drawable/ic_baseline_image_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp" />
+
+    <TextView
+        android:id="@+id/text"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Yo’l belgisining rasmini qo’shish uchun rasm ustiga bosing"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/name"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="Yo'l belgisining nomi"
+        android:textColorHint="#A8A3A3"
+        android:textSize="15sp"
+        android:backgroundTint="#D1D0D0"
+        android:background="@drawable/edittext_bg"
+        android:layout_width="match_parent"
+        android:paddingStart="20dp"
+        android:layout_height="50dp" />
+
+
+    <EditText
+        android:id="@+id/info"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        android:layout_marginTop="20dp"
+        android:hint="Yo’l belgisining to’liq tarifi"
+        android:textColorHint="#A8A3A3"
+        android:paddingStart="20dp"
+        android:gravity="start|top"
+        android:paddingTop="15dp"
+        android:textSize="15sp"
+        android:backgroundTint="#D1D0D0"
+        android:background="@drawable/edittext_bg"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                app:layout_constraintTop_toBottomOf="@id/info"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="#D1D0D0"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/spinner"
+                app:layout_constraintBottom_toBottomOf="@id/spinner"
+                app:layout_constraintRight_toRightOf="@id/spinner"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_down_arrow"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="100dp"
+                android:id="@+id/save"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/main_color"
+                android:text="Saqlash"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

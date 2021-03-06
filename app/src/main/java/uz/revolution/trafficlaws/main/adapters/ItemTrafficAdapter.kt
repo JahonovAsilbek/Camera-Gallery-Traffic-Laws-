@@ -55,15 +55,16 @@ class ItemTrafficAdapter:RecyclerView.Adapter<ItemTrafficAdapter.VH>() {
                 }
             }
 
-            itemView.liked.setOnClickListener {
-                if (traffic.liked!!) {
-                    itemView.liked.setImageResource(R.drawable.ic_heart11)
-                    traffic.liked=false
-                } else {
-                    itemView.liked.setImageResource(R.drawable.ic_heart1)
-                    traffic.liked=true
-                }
-            }
+
+//            itemView.liked.setOnClickListener {
+//                if (traffic.liked!!) {
+//                    itemView.liked.setImageResource(R.drawable.ic_heart11)
+//                    traffic.liked=false
+//                } else {
+//                    itemView.liked.setImageResource(R.drawable.ic_heart1)
+//                    traffic.liked=true
+//                }
+//            }
         }
     }
 
@@ -88,5 +89,9 @@ class ItemTrafficAdapter:RecyclerView.Adapter<ItemTrafficAdapter.VH>() {
     }
     interface OnLikeClick{
         fun onClick(traffic: Traffic,position: Int,imageView: ImageView)
+    }
+
+    fun setOnLikedClick(onLikeClick: OnLikeClick) {
+        this.onLikeClick=onLikeClick
     }
 }

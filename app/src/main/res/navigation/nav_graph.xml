@@ -18,5 +18,14 @@
         android:id="@+id/trafficFragment"
         android:name="uz.revolution.trafficlaws.main.TrafficFragment"
         android:label="fragment_traffic"
-        tools:layout="@layout/fragment_traffic" />
+        tools:layout="@layout/fragment_traffic" >
+        <action
+            android:id="@+id/action_trafficFragment_to_addTraffic"
+            app:destination="@id/addTraffic" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTraffic"
+        android:name="uz.revolution.trafficlaws.addTraffic.AddFragment"
+        android:label="Yo'l belgisi qo'shish"
+        tools:layout="@layout/fragment_add_traffic" />
 </navigation>

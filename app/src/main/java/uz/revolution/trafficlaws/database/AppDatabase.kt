@@ -22,7 +22,9 @@ abstract class AppDatabase:RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "traffic.db"
-                    ).build()
+                    )
+                        .allowMainThreadQueries()
+                        .build()
                 }
             }
         }

@@ -1,5 +1,6 @@
 package uz.revolution.trafficlaws.main
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +9,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.android.synthetic.main.fragment_start.view.*
 import kotlinx.android.synthetic.main.tab_item.view.*
 import uz.revolution.trafficlaws.R
 import uz.revolution.trafficlaws.main.adapters.TrafficMainAdapter
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,10 +52,32 @@ class StartFragment : Fragment() {
 
         (activity as AppCompatActivity).setSupportActionBar(root.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setPermission()
         loadAdapters()
         setTabs()
 
         return root
+    }
+
+    private fun setPermission() {
+        Dexter.withContext(root.context)
+            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest?,
+                    token: PermissionToken?
+                ) {
+
+                }
+            }).check()
     }
 
     private fun loadAdapters() {

@@ -1,9 +1,11 @@
 package uz.revolution.trafficlaws.main
 
-import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_traffic.view.*
 import uz.revolution.trafficlaws.R
 import uz.revolution.trafficlaws.daos.TrafficDao
@@ -46,13 +48,42 @@ class TrafficFragment : Fragment() {
         root = inflater.inflate(R.layout.fragment_traffic, container, false)
         loadData()
         loadAdapters()
+        likeClick()
 
         return root
     }
 
+    private fun likeClick() {
+        
+        // like click not working*********************************************
+
+        adapter?.setOnLikedClick(object :ItemTrafficAdapter.OnLikeClick{
+            override fun onClick(traffic: Traffic, position: Int, imageView: ImageView) {
+                Log.d("AAAA", "onLikeClick: ${traffic.liked}")
+                val liked: Boolean = if (traffic.liked!!) {
+                    imageView.setImageResource(R.drawable.ic_heart11)
+                    false
+                } else {
+                    imageView.setImageResource(R.drawable.ic_heart1)
+                    true
+                }
+                trafficDao?.updateLiked(liked, traffic.id!!)
+                adapter?.notifyItemChanged(position)
+            }
+
+        })
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.add_btn,menu)
+        inflater.inflate(R.menu.add_btn, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.add_btn -> findNavController().navigate(R.id.addTraffic)
+        }
+        return true
     }
 
     private fun loadAdapters() {
@@ -63,60 +94,7 @@ class TrafficFragment : Fragment() {
 
     private fun loadData() {
         data = ArrayList()
-
-        AsyncTask.execute { // Insert Data
-            data = trafficDao?.getTrafficByCategory(categoryID!!) as ArrayList
-        }
-
-
-        data?.add(
-            Traffic(
-                "Shlagbaumli temir yo'l kesishmasi",
-                "Ushbu yo‘l belgisi to‘suvchi qurilma bilan jihozlangan \n" +
-                        "temir yo‘l kesishmasiga yetmasdan o‘rnatiladi va \n" +
-                        "transport vositalari haydovchilarini oldinda to‘suvchi \n" +
-                        "qurilma borligi haqida ogohlantiradi.",
-                "",
-                1,
-                true
-            )
-        )
-        data?.add(
-            Traffic(
-                "Shlagbaumli temir yo'l kesishmasi",
-                "Ushbu yo‘l belgisi to‘suvchi qurilma bilan jihozlangan \n" +
-                        "temir yo‘l kesishmasiga yetmasdan o‘rnatiladi va \n" +
-                        "transport vositalari haydovchilarini oldinda to‘suvchi \n" +
-                        "qurilma borligi haqida ogohlantiradi.",
-                "",
-                2,
-                true
-            )
-        )
-        data?.add(
-            Traffic(
-                "Shlagbaumli temir yo'l kesishmasi",
-                "Ushbu yo‘l belgisi to‘suvchi qurilma bilan jihozlangan \n" +
-                        "temir yo‘l kesishmasiga yetmasdan o‘rnatiladi va \n" +
-                        "transport vositalari haydovchilarini oldinda to‘suvchi \n" +
-                        "qurilma borligi haqida ogohlantiradi.",
-                "",
-                3,
-                true
-            )
-        )
-        data?.add(
-            Traffic(
-                "Shlagbaumli temir yo'l kesishmasi",
-                "Ushbu yo‘l belgisi to‘suvchi qurilma bilan jihozlangan \n" +
-                        "temir yo‘l kesishmasiga yetmasdan o‘rnatiladi va \n" +
-                        "transport vositalari haydovchilarini oldinda to‘suvchi \n" +
-                        "qurilma borligi haqida ogohlantiradi.",
-                "",
-                4,
-                true
-            )
-        )
+        data = trafficDao?.getTrafficByCategory(categoryID!!) as ArrayList
     }
 
     companion object {
