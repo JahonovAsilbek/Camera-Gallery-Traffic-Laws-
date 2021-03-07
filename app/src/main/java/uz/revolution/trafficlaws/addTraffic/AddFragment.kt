@@ -163,7 +163,6 @@ class AddFragment : Fragment() {
             openInputStream?.copyTo(fileOutputStream)
             openInputStream?.close()
             absolutePath = file.absolutePath
-            Toast.makeText(root.context, "$absolutePath", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -169,6 +169,7 @@ class TrafficFragment : Fragment() {
                 dialog.setMessage("Rostdan ham bu xabarni o'chirmoqchimisiz?")
                 dialog.setPositiveButton("Ha", object : DialogInterface.OnClickListener {
                     override fun onClick(p0: DialogInterface?, p1: Int) {
+
                         trafficDao?.deleteTraffic(traffic)
                         loadData()
                         loadAdapters()
