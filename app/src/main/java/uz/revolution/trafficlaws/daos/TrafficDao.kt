@@ -31,6 +31,9 @@ interface TrafficDao {
     @Query("UPDATE traffic SET liked=:liked WHERE id=:id")
     fun updateLiked(liked: Boolean,id: Int)
 
+    @Query("SELECT * FROM traffic WHERE liked=:liked")
+    fun getTrafficByLiked(liked: Boolean):List<Traffic>
+
     @Delete
     fun deleteTraffic(traffic: Traffic)
 

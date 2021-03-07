@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Traffic laws</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">This app was created by Asilbek Jahonov</string>
+    <string name="info">Ushbu yo‘l belgisi to‘suvchi qurilma bilan jihozlangan
+temir yo‘l kesishmasiga yetmasdan o‘rnatiladi va
+transport vositalari haydovchilarini oldinda to‘suvchi
+qurilma borligi haqida ogohlantiradi.</string>
 </resources>

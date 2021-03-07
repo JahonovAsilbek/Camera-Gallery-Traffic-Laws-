@@ -44,6 +44,7 @@
 
     <ImageView
         android:id="@+id/image"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_baseline_image_24"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

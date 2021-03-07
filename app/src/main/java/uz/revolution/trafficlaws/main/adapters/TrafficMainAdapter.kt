@@ -17,6 +17,6 @@ class TrafficMainAdapter(fragmentManager: FragmentManager) :
 
 
     override fun getItem(position: Int): Fragment {
-        return TrafficFragment.newInstance(position + 1, "")
+        return TrafficFragment.newInstance(position + 1, false)
     }
 }

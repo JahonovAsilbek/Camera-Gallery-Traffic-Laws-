@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -16,6 +17,9 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.android.synthetic.main.fragment_start.view.*
+import kotlinx.android.synthetic.main.fragment_start.view.bottom_navigation
+import kotlinx.android.synthetic.main.fragment_start.view.toolbar
+import kotlinx.android.synthetic.main.fragment_traffic.view.*
 import kotlinx.android.synthetic.main.tab_item.view.*
 import uz.revolution.trafficlaws.R
 import uz.revolution.trafficlaws.main.adapters.TrafficMainAdapter
@@ -55,8 +59,41 @@ class StartFragment : Fragment() {
         setPermission()
         loadAdapters()
         setTabs()
-
+        bottomNavigationClick()
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bottomNavigationClick()
+    }
+
+    private fun bottomNavigationClick() {
+        val menu = root.bottom_navigation.menu
+        for (i in 0 until menu.size()) {
+            val item = menu.getItem(i)
+            if (item.itemId == R.id.home) {
+                item.isChecked = true
+            }
+        }
+        root.bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.liked -> {
+                    val bundle = Bundle()
+                    bundle.putBoolean("liked", true)
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.trafficFragment, bundle)
+                    it.isChecked = true
+                }
+                R.id.info -> {
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.aboutFragment)
+                    it.isChecked = true
+                }
+            }
+
+            true
+        }
     }
 
     private fun setPermission() {

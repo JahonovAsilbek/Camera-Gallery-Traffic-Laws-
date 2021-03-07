@@ -15,6 +15,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="70dp"
+            android:scaleType="centerCrop"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_launcher_background"
@@ -49,6 +50,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/delete"
             android:layout_width="85dp"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_height="25dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/tab_corner2"
@@ -86,6 +89,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/edit"
+            android:clickable="true"
             android:layout_width="85dp"
             android:layout_height="25dp"
             android:layout_marginTop="10dp"
@@ -95,7 +99,8 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/delete"
-            app:layout_constraintTop_toBottomOf="@id/name">
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:focusable="true">
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/pencil"

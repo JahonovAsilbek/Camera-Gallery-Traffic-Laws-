@@ -2,6 +2,7 @@ package uz.revolution.trafficlaws.addTraffic
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_add_traffic.view.*
+import kotlinx.android.synthetic.main.fragment_add_traffic.view.image
+import kotlinx.android.synthetic.main.fragment_add_traffic.view.name
+import kotlinx.android.synthetic.main.item_traffic.view.*
 import uz.revolution.trafficlaws.R
 import uz.revolution.trafficlaws.addTraffic.adapters.SpinnerAdapter
 import uz.revolution.trafficlaws.daos.TrafficDao
@@ -22,18 +26,18 @@ import uz.revolution.trafficlaws.models.Traffic
 import java.io.File
 import java.io.FileOutputStream
 
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "traffic"
 private const val ARG_PARAM2 = "param2"
 
 class AddFragment : Fragment() {
 
-    private var param1: String? = null
+    private var traffic: Traffic? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            traffic = it.getSerializable(ARG_PARAM1) as Traffic?
             param2 = it.getString(ARG_PARAM2)
         }
         database = AppDatabase.get.getDatabse()
@@ -54,12 +58,26 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         root = inflater.inflate(R.layout.fragment_add_traffic, container, false)
+        if (traffic != null) {
+            loadDataToView()
+        }
         setToolbar()
         setImage()
         setSpinner()
         saveClick()
 
         return root
+    }
+
+    private fun loadDataToView() {
+        val imgFile = File(traffic?.imagePath)
+        if (imgFile.exists()) {
+            val myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath())
+            root.image.setImageBitmap(myBitmap)
+        }
+        absolutePath=traffic?.imagePath
+        root.name.setText(traffic?.name)
+        root.info.setText(traffic?.info)
     }
 
     private fun saveClick() {
@@ -74,15 +92,26 @@ class AddFragment : Fragment() {
                     true
                 )
             ) {
-                trafficDao?.insertTraffic(
-                    Traffic(
+                if (traffic == null) {
+                    trafficDao?.insertTraffic(
+                        Traffic(
+                            name,
+                            info,
+                            imagePath,
+                            categoryList?.indexOf(category)!!,
+                            false
+                        )
+                    )
+                } else {
+                    trafficDao?.updateTraffic(
                         name,
                         info,
                         imagePath,
                         categoryList?.indexOf(category)!!,
-                        false
+                        traffic?.liked!!,
+                        traffic?.id!!
                     )
-                )
+                }
                 findNavController().popBackStack()
             } else {
                 Snackbar.make(root,"Barcha maydonlarni to'ldiring",Snackbar.LENGTH_LONG).show()
@@ -101,6 +130,9 @@ class AddFragment : Fragment() {
         adapter = SpinnerAdapter()
         adapter?.setAdapter(categoryList!!)
         root.spinner.adapter=adapter
+        if (traffic != null) {
+            root.spinner.setSelection(traffic?.category!!,true)
+        }
 
     }
 
@@ -153,10 +185,10 @@ class AddFragment : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(traffic: String, param2: String) =
             AddFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM1, traffic)
                     putString(ARG_PARAM2, param2)
                 }
             }
