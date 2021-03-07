@@ -56,7 +56,7 @@ class StartFragment : Fragment() {
 
         (activity as AppCompatActivity).setSupportActionBar(root.toolbar)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        setPermission()
+//        setPermission()
         loadAdapters()
         setTabs()
         bottomNavigationClick()
@@ -96,26 +96,26 @@ class StartFragment : Fragment() {
         }
     }
 
-    private fun setPermission() {
-        Dexter.withContext(root.context)
-            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse) {
-
-                }
-
-                override fun onPermissionDenied(response: PermissionDeniedResponse) {
-
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permission: PermissionRequest?,
-                    token: PermissionToken?
-                ) {
-
-                }
-            }).check()
-    }
+//    private fun setPermission() {
+//        Dexter.withContext(root.context)
+//            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//            .withListener(object : PermissionListener {
+//                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+//
+//                }
+//
+//                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+//
+//                }
+//
+//                override fun onPermissionRationaleShouldBeShown(
+//                    permission: PermissionRequest?,
+//                    token: PermissionToken?
+//                ) {
+//
+//                }
+//            }).check()
+//    }
 
     private fun loadAdapters() {
         adapter = TrafficMainAdapter(childFragmentManager)
